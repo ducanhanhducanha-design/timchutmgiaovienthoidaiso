@@ -1,0 +1,1625 @@
+<html style="margin:0;padding:0;">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+(function(){
+  var s = document.createElement('style');
+  s.textContent = `
+    :root{
+      --bg:#faf9f4;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --accent:#297a2e;
+      --accent-soft:rgba(41,122,46,.14);
+      --accent2:#d97706;
+      --accent2-soft:rgba(217,119,6,.14);
+      --border:rgba(15,23,42,.08);
+      --success:#10b981;
+      --error:#ef4444;
+      --warning:#f59e0b;
+      --fire:#ff6b35;
+    }
+    *{box-sizing:border-box;font-family:'Fredoka',sans-serif;}
+    body{margin:0;background:var(--bg);color:var(--text);}
+    .reveal{opacity:0;transform:translateY(20px);animation:fadeUp .5s ease forwards}
+    .reveal:nth-child(2){animation-delay:.08s}
+    .reveal:nth-child(3){animation-delay:.16s}
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+    @keyframes shake{0%,100%{transform:translateX(0) rotate(0)}15%{transform:translateX(-10px) rotate(-3deg)}30%{transform:translateX(10px) rotate(3deg)}45%{transform:translateX(-8px) rotate(-2deg)}60%{transform:translateX(8px) rotate(2deg)}75%{transform:translateX(-4px)}90%{transform:translateX(4px)}}
+    @keyframes pop{0%{transform:scale(1)}30%{transform:scale(1.35) rotate(5deg)}60%{transform:scale(0.9) rotate(-3deg)}100%{transform:scale(1) rotate(0)}}
+    @keyframes sparkle{0%{opacity:0;transform:scale(0) rotate(0deg)}50%{opacity:1;transform:scale(1.5) rotate(180deg)}100%{opacity:0;transform:scale(0) rotate(360deg)}}
+    @keyframes slideInRight{from{opacity:0;transform:translateX(40px) scale(0.8)}to{opacity:1;transform:translateX(0) scale(1)}}
+    @keyframes confetti-fall{0%{transform:translateY(-100vh) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+    @keyframes blink-hint{0%,100%{background:var(--accent-soft);color:var(--text);transform:scale(1);box-shadow:none}50%{background:var(--accent);color:#fff;transform:scale(1.15);box-shadow:0 0 20px var(--accent)}}
+    @keyframes fire-burn{0%{background:var(--bg);color:var(--text);box-shadow:none}25%{background:#ff6b35;color:#fff;box-shadow:0 0 15px #ff6b35,0 0 30px #ff4500}50%{background:#ff4500;color:#fff;transform:scale(1.2) rotate(5deg);box-shadow:0 0 25px #ff4500,0 0 50px #ff6b35}75%{background:#ff6b35;color:#fff;box-shadow:0 0 15px #ff6b35}100%{background:var(--success);color:#fff;transform:scale(1);box-shadow:none}}
+    @keyframes wrong-flash{0%{background:var(--bg);transform:scale(1)}20%{background:rgba(239,68,68,.5);transform:scale(1.15);box-shadow:0 0 20px var(--error)}40%{background:rgba(239,68,68,.3);transform:scale(0.95)}60%{background:rgba(239,68,68,.5);transform:scale(1.1)}80%{background:rgba(239,68,68,.2)}100%{background:var(--bg);transform:scale(1)}}
+    @keyframes correct-glow{0%{background:var(--bg);transform:scale(1);box-shadow:none}30%{background:var(--success);color:#fff;transform:scale(1.3);box-shadow:0 0 30px var(--success),0 0 60px rgba(16,185,129,.5)}60%{background:var(--success);color:#fff;transform:scale(1.1);box-shadow:0 0 15px var(--success)}100%{background:var(--success);color:#fff;transform:scale(1);box-shadow:0 0 5px var(--success)}}
+    @keyframes checkmark-draw{0%{stroke-dashoffset:100}100%{stroke-dashoffset:0}}
+    @keyframes float-up{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(1.5)}}
+    @keyframes pulse-ring{0%{transform:scale(0.8);opacity:1}100%{transform:scale(2);opacity:0}}
+    .shake{animation:shake .5s ease}
+    .pop{animation:pop .4s ease}
+    .fire-burn{animation:fire-burn .8s ease forwards}
+    .wrong-flash{animation:wrong-flash .5s ease}
+    .correct-glow{animation:correct-glow .5s ease forwards}
+    .btn-primary{background:var(--accent);color:#fff;border:none;padding:14px 32px;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s ease;box-shadow:0 4px 14px rgba(41,122,46,.3)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(41,122,46,.4)}
+    .btn-primary:active{transform:translateY(0)}
+    .btn-secondary{background:var(--card);color:var(--text);border:2px solid var(--border);padding:14px 32px;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s ease}
+    .btn-secondary:hover{border-color:var(--accent);background:var(--accent-soft)}
+    .btn-ghost{background:transparent;color:var(--muted);border:none;padding:10px 16px;border-radius:10px;cursor:pointer;transition:all .2s ease;font-size:14px}
+    .btn-ghost:hover{background:var(--accent-soft);color:var(--accent)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+    .card-raised{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+    .input-field{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:12px;font-size:15px;background:var(--bg);color:var(--text);transition:border-color .2s ease;outline:none}
+    .input-field:focus{border-color:var(--accent);background:var(--card)}
+    .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s ease;border:2px solid transparent}
+    .chip-default{background:var(--bg);color:var(--text);border-color:var(--border)}
+    .chip-active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+    .chip:hover{border-color:var(--accent)}
+    .word-cell{
+      width:44px;height:44px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:700;
+      border-radius:10px;
+      cursor:pointer;user-select:none;
+      transition:all .15s ease;
+      background:var(--card);
+      color:var(--text);
+      border:2px solid var(--border);
+      box-shadow:0 1px 3px rgba(0,0,0,.05);
+    }
+    .word-cell:hover{
+      background:var(--accent-soft);
+      border-color:var(--accent);
+      transform:scale(1.08);
+      box-shadow:0 3px 10px rgba(41,122,46,.2);
+      z-index:2;
+    }
+    .word-cell.selected{
+      background:var(--accent2-soft);
+      color:var(--accent2);
+      border-color:var(--accent2);
+      transform:scale(1.15);
+      box-shadow:0 0 15px var(--accent2-soft);
+      z-index:3;
+    }
+    .word-cell.found{
+      background:var(--success);
+      color:#fff;
+      border-color:var(--success);
+      box-shadow:0 2px 10px rgba(16,185,129,.4);
+    }
+    .word-cell.hint{animation:blink-hint .8s ease-in-out 3}
+    .word-cell.wrong{animation:wrong-flash .5s ease}
+    .word-cell.burning{animation:fire-burn .8s ease forwards}
+    .power-btn{
+      width:100%;
+      padding:12px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      transition:all .2s ease;
+      border:2px solid var(--border);
+      background:var(--card);
+      position:relative;
+    }
+    .power-btn:hover{
+      border-color:var(--accent);
+      background:var(--accent-soft);
+      transform:translateX(4px);
+    }
+    .power-btn.active{
+      border-color:var(--accent);
+      background:var(--accent-soft);
+      box-shadow:0 0 16px var(--accent-soft);
+    }
+    .power-btn.disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+    .power-icon{
+      width:36px;height:36px;
+      border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+    }
+    .power-info{flex:1;text-align:left;}
+    .power-name{font-weight:600;font-size:13px;}
+    .power-desc{font-size:11px;color:var(--muted);line-height:1.3;}
+    .power-count{
+      position:absolute;
+      top:-6px;right:-6px;
+      width:24px;height:24px;
+      border-radius:50%;
+      background:var(--accent2);
+      color:#fff;
+      font-size:12px;font-weight:700;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 2px 6px rgba(217,119,6,.4);
+    }
+    .found-word{
+      padding:10px 14px;
+      background:linear-gradient(135deg,var(--accent-soft),rgba(16,185,129,.1));
+      color:var(--accent);
+      border-radius:12px;
+      font-weight:600;
+      font-size:14px;
+      animation:slideInRight .4s ease;
+      display:flex;align-items:center;gap:8px;
+      border:1px solid rgba(41,122,46,.2);
+      position:relative;
+      overflow:hidden;
+    }
+    .found-word::before{
+      content:'';
+      position:absolute;
+      left:0;top:0;bottom:0;
+      width:3px;
+      background:var(--success);
+    }
+    .found-word .check-icon{color:var(--success)}
+    .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(6px);animation:fadeUp .2s ease}
+    .modal-content{background:var(--card);border-radius:24px;padding:32px;max-width:520px;width:90%;max-height:85vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+    .confetti-piece{position:fixed;width:12px;height:12px;top:-10px;animation:confetti-fall 3.5s linear forwards;z-index:200;border-radius:3px}
+    .firework-canvas{position:fixed;inset:0;pointer-events:none;z-index:150}
+    .screen{display:none}
+    .screen.active{display:block}
+    .subject-card{padding:16px;border-radius:14px;cursor:pointer;transition:all .2s ease;border:2px solid var(--border);background:var(--bg)}
+    .subject-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+    .subject-card.selected{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px var(--accent-soft)}
+    .subject-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:24px}
+    .progress-bar{height:10px;background:var(--border);border-radius:5px;overflow:hidden}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s ease;border-radius:5px}
+    .scrollbar-thin::-webkit-scrollbar{width:6px}
+    .scrollbar-thin::-webkit-scrollbar-track{background:transparent}
+    .scrollbar-thin::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+    .toggle-switch{position:relative;width:48px;height:26px;background:var(--border);border-radius:13px;cursor:pointer;transition:background .2s ease}
+    .toggle-switch.active{background:var(--accent)}
+    .toggle-switch::after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform .2s ease;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+    .toggle-switch.active::after{transform:translateX(22px)}
+    .float-point{
+      position:fixed;
+      font-size:24px;
+      font-weight:700;
+      color:var(--success);
+      pointer-events:none;
+      z-index:250;
+      animation:float-up 1s ease forwards;
+      text-shadow:0 2px 10px rgba(16,185,129,.5);
+    }
+    .pulse-ring{
+      position:absolute;
+      border-radius:50%;
+      border:3px solid var(--success);
+      animation:pulse-ring .8s ease-out forwards;
+    }
+  `;
+  document.head.appendChild(s);
+})();
+</script>
+<div style="background-color:transparent;box-sizing:border-box;min-height:600px;">
+<div id="app" style="font-family:'Fredoka',sans-serif;color:var(--text);background:radial-gradient(1000px 500px at 20% -10%, var(--accent-soft), transparent 60%),radial-gradient(800px 400px at 100% 0%, var(--accent2-soft), transparent 50%),var(--bg);min-height:600px;">
+
+<!-- ============ SCREEN: HOME ============ -->
+<div id="screen-home" class="screen active">
+  <div style="max-width:900px;margin:0 auto;padding:48px 24px;text-align:center;">
+    <div class="reveal" style="margin-bottom:32px;">
+      <div style="display:inline-flex;align-items:center;justify-content:center;width:90px;height:90px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--accent2));margin-bottom:20px;box-shadow:0 8px 30px rgba(41,122,46,.3);">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 9h16"/><path d="M9 4v16"/><circle cx="14" cy="14" r="2"/><path d="m17 17 2 2"/></svg>
+      </div>
+      <h1 style="font-size:44px;font-weight:700;margin-bottom:8px;letter-spacing:-0.02em;line-height:1.1;">
+        <span style="background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;">Tìm Chữ</span>
+        <span style="color:var(--text);"> Thông Minh</span>
+      </h1>
+      <p style="color:var(--muted);font-size:16px;max-width:500px;margin:0 auto;line-height:1.6;">Trò chơi tìm từ vựng giáo dục - Tạo bộ câu hỏi, tùy chỉnh thể năng và chơi cùng học sinh!</p>
+    </div>
+
+    <div class="reveal" style="display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-bottom:40px;">
+      <button onclick="goToSetup()" class="btn-primary" style="display:flex;align-items:center;gap:10px;padding:18px 36px;font-size:18px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Bắt Đầu
+      </button>
+      <button onclick="goToWordSets()" class="btn-secondary" style="display:flex;align-items:center;gap:10px;padding:18px 36px;font-size:18px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Bộ Từ Khóa
+      </button>
+      <button onclick="quickPlay()" class="btn-secondary" style="display:flex;align-items:center;gap:10px;padding:18px 36px;font-size:18px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Chơi Ngay
+      </button>
+    </div>
+
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:720px;margin:0 auto;">
+      <div class="card" style="padding:20px;text-align:left;">
+        <div style="width:40px;height:40px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 style="font-weight:600;margin-bottom:4px;">Nhiều Môn Học</h3>
+        <p style="color:var(--muted);font-size:13px;line-height:1.5;">Hỗ trợ đầy đủ các môn học từ Toán, Văn, Anh đến Khoa học...</p>
+      </div>
+      <div class="card" style="padding:20px;text-align:left;">
+        <div style="width:40px;height:40px;border-radius:10px;background:var(--accent2-soft);color:var(--accent2);display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3 style="font-weight:600;margin-bottom:4px;">Thể Năng Đặc Biệt</h3>
+        <p style="color:var(--muted);font-size:13px;line-height:1.5;">Đóng băng, kính lúp, bóng đèn, cháy và tùy chỉnh thêm!</p>
+      </div>
+      <div class="card" style="padding:20px;text-align:left;">
+        <div style="width:40px;height:40px;border-radius:10px;background:rgba(16,185,129,.14);color:var(--success);display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3 style="font-weight:600;margin-bottom:4px;">Lưu Tự Động</h3>
+        <p style="color:var(--muted);font-size:13px;line-height:1.5;">Bộ từ khóa được lưu vĩnh viễn, không bị mất khi tải lại trang.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SCREEN: SETUP ============ -->
+<div id="screen-setup" class="screen">
+  <div style="max-width:1000px;margin:0 auto;padding:32px 24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+      <button onclick="goHome()" class="btn-ghost" style="display:flex;align-items:center;gap:6px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Quay lại
+      </button>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div id="step1" style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;background:var(--accent);color:#fff;">1</div>
+        <div style="width:40px;height:3px;background:var(--border);" id="line1"></div>
+        <div id="step2" style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;background:var(--border);color:var(--muted);">2</div>
+        <div style="width:40px;height:3px;background:var(--border);" id="line2"></div>
+        <div id="step3" style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;background:var(--border);color:var(--muted);">3</div>
+      </div>
+      <div style="width:80px;"></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div id="setup-step1">
+      <div class="reveal">
+        <h2 style="font-size:28px;font-weight:700;margin-bottom:4px;">Thiết Lập Thẻ & Thể Năng</h2>
+        <p style="color:var(--muted);margin-bottom:24px;">Chọn môn học và các thể năng hỗ trợ cho trò chơi</p>
+      </div>
+
+      <div class="card-raised reveal" style="padding:24px;margin-bottom:20px;">
+        <h3 style="font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Chọn Môn Học
+        </h3>
+        <div id="subject-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;"></div>
+      </div>
+
+      <div class="card-raised reveal" style="padding:24px;margin-bottom:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <h3 style="font-weight:600;display:flex;align-items:center;gap:8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Thể Năng Hỗ Trợ
+            <span style="font-size:12px;color:var(--muted);font-weight:400;">(chọn tối đa 3, mỗi thể dùng 3 lần)</span>
+          </h3>
+          <button onclick="openAddPowerModal()" class="btn-ghost" style="color:var(--accent);display:flex;align-items:center;gap:4px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            Thêm thẻ
+          </button>
+        </div>
+        <div id="power-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;"></div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:12px;">
+        <button onclick="goToStep2()" class="btn-primary" style="display:flex;align-items:center;gap:8px;">
+          Tiếp tục
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="setup-step2" style="display:none;">
+      <div class="reveal">
+        <h2 style="font-size:28px;font-weight:700;margin-bottom:4px;">Tạo Bộ Từ Khóa</h2>
+        <p style="color:var(--muted);margin-bottom:24px;">Nhập các từ khóa theo cú pháp: mỗi từ một dòng hoặc phân cách bằng dấu phẩy</p>
+      </div>
+
+      <div class="card-raised reveal" style="padding:24px;margin-bottom:20px;">
+        <div style="display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--accent-soft);border-radius:12px;margin-bottom:16px;border-left:4px solid var(--accent);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <div>
+            <strong style="color:var(--accent);">Trợ lý AI hỗ trợ:</strong>
+            <span style="color:var(--text);">Nhập từ khóa theo cú pháp: <code style="background:var(--card);padding:2px 8px;border-radius:6px;">từ1, từ2, từ3</code> hoặc mỗi từ một dòng</span>
+          </div>
+        </div>
+        <textarea id="keywords-input" class="input-field" rows="6" placeholder="Ví dụ:&#10;toán học&#10;phép cộng&#10;phép trừ&#10;bội số&#10;ước số&#10;&#10;Hoặc: toán học, phép cộng, phép trừ, bội số, ước số" style="resize:vertical;font-family:'Fredoka',sans-serif;"></textarea>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;">
+          <span style="color:var(--muted);font-size:13px;" id="keyword-count">Đã nhập: 0 từ</span>
+          <button onclick="parseKeywords()" class="btn-ghost" style="color:var(--accent);">Xem trước</button>
+        </div>
+      </div>
+
+      <div class="card-raised reveal" style="padding:24px;margin-bottom:20px;display:none;" id="preview-container">
+        <h3 style="font-weight:600;margin-bottom:12px;">Từ khóa đã nhập</h3>
+        <div id="keywords-preview" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;gap:12px;">
+        <button onclick="goToStep1()" class="btn-secondary">Quay lại</button>
+        <div style="display:flex;gap:12px;">
+          <button onclick="saveCurrentKeywords()" class="btn-secondary" style="border-color:var(--accent2);color:var(--accent2);">Lưu bộ từ khóa</button>
+          <button onclick="goToStep3()" class="btn-primary" style="display:flex;align-items:center;gap:8px;">
+            Tiếp tục
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div id="setup-step3" style="display:none;">
+      <div class="reveal">
+        <h2 style="font-size:28px;font-weight:700;margin-bottom:4px;">Cài Đặt Trò Chơi</h2>
+        <p style="color:var(--muted);margin-bottom:24px;">Thiết lập thời gian và các tùy chọn hiển thị</p>
+      </div>
+
+      <div class="card-raised reveal" style="padding:24px;margin-bottom:20px;">
+        <h3 style="font-weight:600;margin-bottom:16px;">Thời Gian Chơi</h3>
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+          <input type="number" id="game-time" class="input-field" value="120" min="30" max="600" step="30" style="width:140px;text-align:center;font-size:20px;font-weight:600;">
+          <span style="color:var(--muted);">giây</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button onclick="setTime(60)" class="chip chip-default">1 phút</button>
+            <button onclick="setTime(120)" class="chip chip-default">2 phút</button>
+            <button onclick="setTime(180)" class="chip chip-default">3 phút</button>
+            <button onclick="setTime(300)" class="chip chip-default">5 phút</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-raised reveal" style="padding:24px;margin-bottom:20px;">
+        <h3 style="font-weight:600;margin-bottom:16px;">Tùy Chọn Hiển Thị & Âm Thanh</h3>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);">
+            <div><div style="font-weight:500;">Nhạc nền</div><div style="color:var(--muted);font-size:13px;">Phát nhạc nhẹ nhàng trong khi chơi</div></div>
+            <div class="toggle-switch active" onclick="toggleSetting(this,'bgMusic')"></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);">
+            <div><div style="font-weight:500;">Hiệu ứng âm thanh</div><div style="color:var(--muted);font-size:13px;">Âm thanh khi chọn đúng/sai và tìm được từ</div></div>
+            <div class="toggle-switch active" onclick="toggleSetting(this,'sfx')"></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);">
+            <div><div style="font-weight:500;">Màn hình chiến thắng</div><div style="color:var(--muted);font-size:13px;">Hiệu ứng pháo hoa và chúc mừng khi hoàn thành</div></div>
+            <div class="toggle-switch active" onclick="toggleSetting(this,'victoryScreen')"></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;">
+            <div><div style="font-weight:500;">Hiển thị danh sách từ</div><div style="color:var(--muted);font-size:13px;">Hiển thị các từ cần tìm ở cột bên phải</div></div>
+            <div class="toggle-switch active" onclick="toggleSetting(this,'showWordList')"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;gap:12px;">
+        <button onclick="goToStep2()" class="btn-secondary">Quay lại</button>
+        <button onclick="saveAndStart()" class="btn-primary" style="display:flex;align-items:center;gap:8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          Lưu & Bắt Đầu
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SCREEN: WORD SETS ============ -->
+<div id="screen-wordsets" class="screen">
+  <div style="max-width:1000px;margin:0 auto;padding:32px 24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+      <button onclick="goHome()" class="btn-ghost" style="display:flex;align-items:center;gap:6px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Quay lại
+      </button>
+      <h2 style="font-size:28px;font-weight:700;">Bộ Từ Khóa Đã Lưu</h2>
+      <div style="width:80px;"></div>
+    </div>
+    <div id="wordsets-container" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;"></div>
+    <div id="wordsets-empty" style="display:none;text-align:center;padding:80px 20px;">
+      <div style="width:80px;height:80px;border-radius:20px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+      </div>
+      <h3 style="font-weight:600;margin-bottom:8px;">Chưa có bộ từ khóa nào</h3>
+      <p style="color:var(--muted);margin-bottom:20px;">Nhấn nút bên dưới để tạo bộ từ khóa đầu tiên của bạn!</p>
+      <button onclick="goToSetup()" class="btn-primary">Tạo Bộ Từ Khóa</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SCREEN: GAME ============ -->
+<div id="screen-game" class="screen">
+  <div style="display:flex;min-height:650px;">
+    <!-- LEFT PANEL -->
+    <div style="width:220px;background:var(--card);border-right:1px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:14px;flex-shrink:0;">
+      <div style="text-align:center;padding-bottom:12px;border-bottom:1px solid var(--border);">
+        <div style="font-weight:700;font-size:20px;color:var(--accent);margin-bottom:2px;">Tìm Chữ</div>
+        <div style="font-size:12px;color:var(--muted);" id="game-subject">Toán Học</div>
+      </div>
+
+      <div class="card" style="padding:14px;text-align:center;">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Thời Gian</div>
+        <div id="game-timer" style="font-size:32px;font-weight:700;color:var(--accent2);font-variant-numeric:tabular-nums;line-height:1;">02:00</div>
+        <div class="progress-bar" style="margin-top:10px;"><div id="timer-progress" class="progress-fill" style="width:100%;"></div></div>
+      </div>
+
+      <div class="card" style="padding:14px;text-align:center;">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Điểm Số</div>
+        <div id="game-score" style="font-size:32px;font-weight:700;color:var(--accent);line-height:1;">0</div>
+      </div>
+
+      <div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em;">Thể Năng</div>
+        <div id="game-powers" style="display:flex;flex-direction:column;gap:8px;"></div>
+      </div>
+
+      <div style="margin-top:auto;display:flex;flex-direction:column;gap:4px;padding-top:12px;border-top:1px solid var(--border);">
+        <button onclick="toggleGameSound()" class="btn-ghost" style="display:flex;align-items:center;gap:8px;justify-content:flex-start;" id="sound-btn">
+          <svg id="sound-icon-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          <svg id="sound-icon-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          Âm thanh
+        </button>
+        <button onclick="pauseGame()" class="btn-ghost" style="display:flex;align-items:center;gap:8px;justify-content:flex-start;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          Tạm dừng
+        </button>
+        <button onclick="exitGame()" class="btn-ghost" style="display:flex;align-items:center;gap:8px;justify-content:flex-start;color:var(--error);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Thoát
+        </button>
+      </div>
+    </div>
+
+    <!-- CENTER: GAME BOARD -->
+    <div style="flex:1;padding:24px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+      <div id="game-board-wrapper" style="position:relative;">
+        <svg id="connection-svg" style="position:absolute;top:0;left:0;pointer-events:none;z-index:5;"></svg>
+        <div id="game-board" style="display:grid;gap:8px;padding:20px;background:linear-gradient(135deg,var(--card),#f8fafc);border-radius:20px;border:2px solid var(--border);box-shadow:0 12px 40px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.8);"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div style="width:240px;background:var(--card);border-left:1px solid var(--border);padding:16px;display:flex;flex-direction:column;flex-shrink:0;">
+      <div style="font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px;font-size:15px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Từ Đã Tìm
+        <span id="found-count" style="margin-left:auto;background:var(--accent-soft);color:var(--accent);padding:3px 12px;border-radius:12px;font-size:12px;font-weight:700;">0/0</span>
+      </div>
+      <div id="found-words" style="display:flex;flex-direction:column;gap:8px;overflow-y:auto;flex:1;max-height:280px;" class="scrollbar-thin"></div>
+
+      <div id="word-list-section" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+        <div style="font-weight:600;margin-bottom:10px;font-size:13px;color:var(--muted);">Danh sách từ cần tìm</div>
+        <div id="word-list" style="display:flex;flex-direction:column;gap:5px;overflow-y:auto;max-height:220px;" class="scrollbar-thin"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: ADD POWER ============ -->
+<div id="modal-addpower" class="modal-overlay" style="display:none;">
+  <div class="modal-content">
+    <h3 style="font-size:22px;font-weight:700;margin-bottom:4px;">Thêm Thẻ Năng Lượng</h3>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:20px;">Tạo thể năng tùy chỉnh của riêng bạn</p>
+    <div style="margin-bottom:16px;">
+      <label style="display:block;font-weight:500;margin-bottom:6px;font-size:14px;">Tên thể năng</label>
+      <input type="text" id="power-name" class="input-field" placeholder="Ví dụ: Cháy, Sấm sét...">
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="display:block;font-weight:500;margin-bottom:6px;font-size:14px;">Chọn biểu tượng</label>
+      <div id="icon-picker" style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;"></div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <label style="display:block;font-weight:500;margin-bottom:6px;font-size:14px;">Chọn chức năng</label>
+      <select id="power-action" class="input-field" style="font-family:'Fredoka',sans-serif;">
+        <option value="burn">🔥 Cháy - Tự động tìm một từ ngẫu nhiên</option>
+        <option value="freeze">❄️ Đóng băng - Dừng thời gian 10 giây</option>
+        <option value="magnify">🔍 Kính lúp - Làm nổi bật một chữ cái</option>
+        <option value="hint">💡 Bóng đèn - Gợi ý một từ hoàn chỉnh</option>
+        <option value="shuffle">🔀 Xáo trộn - Đổi màu các ô chưa tìm</option>
+        <option value="time">⏰ Thêm giờ - Cộng thêm 30 giây</option>
+      </select>
+    </div>
+    <div style="margin-bottom:20px;">
+      <label style="display:block;font-weight:500;margin-bottom:6px;font-size:14px;">Mô tả chức năng</label>
+      <textarea id="power-desc" class="input-field" rows="2" placeholder="Mô tả ngắn gọn chức năng..." style="resize:none;font-family:'Fredoka',sans-serif;"></textarea>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;">
+      <button onclick="closeAddPowerModal()" class="btn-secondary">Hủy</button>
+      <button onclick="addCustomPower()" class="btn-primary">Thêm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: PAUSE ============ -->
+<div id="modal-pause" class="modal-overlay" style="display:none;">
+  <div class="modal-content" style="text-align:center;">
+    <div style="width:70px;height:70px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    </div>
+    <h3 style="font-size:24px;font-weight:700;margin-bottom:8px;">Trò Chơi Tạm Dừng</h3>
+    <p style="color:var(--muted);margin-bottom:24px;">Thời gian đã được dừng lại</p>
+    <div style="display:flex;flex-direction:column;gap:10px;max-width:240px;margin:0 auto;">
+      <button onclick="resumeGame()" class="btn-primary">Tiếp Tục Chơi</button>
+      <button onclick="restartGame()" class="btn-secondary">Chơi Lại</button>
+      <button onclick="exitGameFromPause()" class="btn-ghost" style="color:var(--error);">Thoát Trò Chơi</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: VICTORY ============ -->
+<div id="modal-victory" class="modal-overlay" style="display:none;">
+  <div class="modal-content" style="text-align:center;">
+    <div id="victory-icon" style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 8px 30px rgba(41,122,46,.4);">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h3 id="victory-title" style="font-size:28px;font-weight:700;margin-bottom:8px;background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;">Chúc Mừng!</h3>
+    <p id="victory-subtitle" style="color:var(--muted);margin-bottom:24px;">Bạn đã tìm được tất cả các từ!</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
+      <div class="card" style="padding:14px;">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Điểm</div>
+        <div id="final-score" style="font-size:24px;font-weight:700;color:var(--accent);">0</div>
+      </div>
+      <div class="card" style="padding:14px;">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Từ tìm được</div>
+        <div id="final-words" style="font-size:24px;font-weight:700;color:var(--accent2);">0</div>
+      </div>
+      <div class="card" style="padding:14px;">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Thời gian</div>
+        <div id="final-time" style="font-size:24px;font-weight:700;color:var(--success);">0s</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;max-width:240px;margin:0 auto;">
+      <button onclick="restartGame()" class="btn-primary">Chơi Lại</button>
+      <button onclick="goHomeFromVictory()" class="btn-secondary">Về Trang Chủ</button>
+    </div>
+  </div>
+</div>
+
+<canvas id="firework-canvas" class="firework-canvas" style="display:none;"></canvas>
+
+</div>
+</div>
+
+<script>
+// ============ STATE & DATA ============
+var state = {
+  currentScreen: 'home',
+  setupStep: 1,
+  selectedSubject: null,
+  selectedPowers: [],
+  keywords: [],
+  gameSettings: { time: 120, bgMusic: true, sfx: true, victoryScreen: true, showWordList: true },
+  customPowers: [],
+  wordSets: JSON.parse(localStorage.getItem('wordSearchSets_v2') || '[]'),
+  selectedIcon: 'star'
+};
+
+var subjects = [
+  {id:'toan',name:'Toán Học',icon:'calculator',color:'#3b82f6'},
+  {id:'van',name:'Ngữ Văn',icon:'book',color:'#8b5cf6'},
+  {id:'anh',name:'Tiếng Anh',icon:'globe',color:'#06b6d4'},
+  {id:'ly',name:'Vật Lý',icon:'atom',color:'#f59e0b'},
+  {id:'hoa',name:'Hóa Học',icon:'flask',color:'#10b981'},
+  {id:'sinh',name:'Sinh Học',icon:'leaf',color:'#84cc16'},
+  {id:'su',name:'Lịch Sử',icon:'clock',color:'#ef4444'},
+  {id:'dia',name:'Địa Lý',icon:'map',color:'#14b8a6'},
+  {id:'gdcd',name:'GDCD',icon:'heart',color:'#ec4899'},
+  {id:'cn',name:'Công Nghệ',icon:'wrench',color:'#6366f1'},
+  {id:'tin',name:'Tin Học',icon:'cpu',color:'#0ea5e9'},
+  {id:'theduc',name:'Thể Dục',icon:'activity',color:'#f97316'}
+];
+
+var defaultPowers = [
+  {id:'freeze',name:'Đóng Băng',icon:'snowflake',desc:'Dừng thời gian 10 giây',color:'#06b6d4',action:'freeze'},
+  {id:'magnify',name:'Kính Lúp',icon:'search',desc:'Làm nổi bật một chữ cái ngẫu nhiên',color:'#8b5cf6',action:'magnify'},
+  {id:'hint',name:'Bóng Đèn',icon:'lightbulb',desc:'Gợi ý toàn bộ một từ khóa',color:'#f59e0b',action:'hint'},
+  {id:'burn',name:'Cháy',icon:'flame',desc:'Đốt cháy và tự động tìm một từ',color:'#ff6b35',action:'burn'}
+];
+
+var iconOptions = ['star','heart','zap','shield','gift','target','rocket','crown','gem','flag','anchor','award','bell','bolt','flame','snowflake','search','lightbulb','clock','activity'];
+
+var gameState = {
+  board: [], boardSize: 12, words: [], wordPositions: {}, foundWords: [],
+  selectedCells: [], isSelecting: false, score: 0, timeLeft: 120,
+  timerInterval: null, isPaused: false, soundOn: true, activePower: null,
+  powerUses: {}, frozen: false
+};
+
+// ============ AUDIO SYSTEM ============
+var audioCtx = null;
+function initAudio() { if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {} } }
+
+function playSound(type) {
+  if (!state.gameSettings.sfx || !gameState.soundOn || !audioCtx) return;
+  
+  if (type === 'click') {
+    var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.type = 'sine'; o.frequency.setValueAtTime(800, audioCtx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.06);
+    g.gain.setValueAtTime(0.08, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+    o.start(); o.stop(audioCtx.currentTime + 0.08);
+  }
+  else if (type === 'correct') {
+    var notes = [523, 659, 784, 1047];
+    notes.forEach(function(f, i) {
+      setTimeout(function() {
+        var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.connect(g); g.connect(audioCtx.destination);
+        o.type = 'triangle'; o.frequency.value = f;
+        g.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+        o.start(); o.stop(audioCtx.currentTime + 0.25);
+      }, i * 60);
+    });
+  }
+  else if (type === 'wrong') {
+    var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.type = 'sawtooth';
+    o.frequency.setValueAtTime(20, audioCtx.currentTime);
+    o.frequency.linearRampToValueAtTime(80, audioCtx.currentTime + 0.05);
+    o.frequency.linearRampToValueAtTime(40, audioCtx.currentTime + 0.15);
+    o.frequency.linearRampToValueAtTime(60, audioCtx.currentTime + 0.25);
+    g.gain.setValueAtTime(0.12, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+    o.start(); o.stop(audioCtx.currentTime + 0.3);
+    
+    var o2 = audioCtx.createOscillator(), g2 = audioCtx.createGain();
+    o2.connect(g2); g2.connect(audioCtx.destination);
+    o2.type = 'square'; o2.frequency.value = 100;
+    g2.gain.setValueAtTime(0.05, audioCtx.currentTime);
+    g2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+    o2.start(); o2.stop(audioCtx.currentTime + 0.2);
+  }
+  else if (type === 'victory') {
+    var melody = [523, 587, 659, 698, 784, 880, 988, 1047];
+    melody.forEach(function(f, i) {
+      setTimeout(function() {
+        var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.connect(g); g.connect(audioCtx.destination);
+        o.type = 'sine'; o.frequency.value = f;
+        g.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
+        o.start(); o.stop(audioCtx.currentTime + 0.35);
+      }, i * 100);
+    });
+  }
+  else if (type === 'power') {
+    var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    o.type = 'sine';
+    o.frequency.setValueAtTime(300, audioCtx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.2);
+    g.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+    o.start(); o.stop(audioCtx.currentTime + 0.3);
+  }
+  else if (type === 'burn') {
+    for (var i = 0; i < 4; i++) {
+      (function(idx) {
+        setTimeout(function() {
+          var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+          o.connect(g); g.connect(audioCtx.destination);
+          o.type = 'sawtooth';
+          o.frequency.setValueAtTime(150 + idx * 50, audioCtx.currentTime);
+          o.frequency.exponentialRampToValueAtTime(80 + idx * 20, audioCtx.currentTime + 0.15);
+          g.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+          o.start(); o.stop(audioCtx.currentTime + 0.2);
+        }, idx * 80);
+      })(i);
+    }
+  }
+}
+
+// ============ ICON SVG ============
+function getIconSvg(name, size) {
+  size = size || 20;
+  var icons = {
+    calculator: '<rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10"/><line x1="12" y1="10" x2="12" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="12" y2="14"/><line x1="16" y1="14" x2="16" y2="18"/>',
+    book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+    globe: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+    atom: '<circle cx="12" cy="12" r="1"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/>',
+    flask: '<path d="M9 3h6"/><path d="M10 3v6L4.5 19a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9V3"/>',
+    leaf: '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c.5 1.5.64 3.5.36 5.94-.5 4.33-3.56 7.9-7.86 9.1A7 7 0 0 1 11 20z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+    clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    map: '<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>',
+    heart: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+    wrench: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+    cpu: '<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>',
+    activity: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
+    snowflake: '<line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M20 16l-4-4 4-4"/><path d="M4 8l4 4-4 4"/><path d="M16 4l-4 4-4-4"/><path d="M8 20l4-4 4 4"/>',
+    search: '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+    lightbulb: '<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>',
+    flame: '<path d="M8.5 6.1c-.3-.4-.8-.6-1.3-.6-.4 0-.7.1-1 .4-1.3 1.3-13.6 14.4-13.6 30.3 0 20.2 16.2 36.6 36.1 36.6 19.8 0 35.9-16.3 35.9-36.4 0-12.8-6.7-24.1-16.9-31.1-.4-.3-.9-.4-1.4-.2-.5.2-.8.6-.9 1.1-.3 1.4-1.5 6.9-6.1 11.3-3.4 3.2-8.1 4.9-12.9 4.9-5.9 0-10.7-4.8-10.7-10.7 0-2.1.6-4.1 1.8-5.6z" transform="scale(0.2) translate(12,12)"/>',
+    star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+    zap: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+    shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    gift: '<polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>',
+    target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+    rocket: '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
+    crown: '<path d="M2 20h20"/><path d="M5 20l3-10 4 5 3-7 5 12"/>',
+    gem: '<polygon points="6 3 18 3 22 9 12 22 2 9 6 3"/>',
+    flag: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>',
+    anchor: '<circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/>',
+    award: '<circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>',
+    bell: '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>',
+    bolt: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'
+  };
+  return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+(icons[name]||icons.star)+'</svg>';
+}
+
+// ============ NAVIGATION ============
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('screen-'+id).classList.add('active');
+  state.currentScreen = id;
+}
+function goHome() { showScreen('home'); stopTimer(); }
+function goToSetup() {
+  initAudio();
+  state.setupStep = 1;
+  state.selectedSubject = null;
+  state.selectedPowers = [];
+  state.keywords = [];
+  showScreen('setup');
+  renderSubjects();
+  renderPowers();
+  updateStepUI();
+}
+function goToWordSets() { showScreen('wordsets'); renderWordSets(); }
+function quickPlay() {
+  initAudio();
+  state.selectedSubject = subjects[0];
+  state.selectedPowers = [defaultPowers[0], defaultPowers[1], defaultPowers[3]];
+  state.keywords = ['toan','cong','tru','nhan','chia','so','hieu','tong','tich','thuong'];
+  state.gameSettings.time = 120;
+  startGame();
+}
+
+// ============ SETUP STEPS ============
+function updateStepUI() {
+  for (var i = 1; i <= 3; i++) {
+    var dot = document.getElementById('step'+i);
+    if (i <= state.setupStep) { dot.style.background = 'var(--accent)'; dot.style.color = '#fff'; }
+    else { dot.style.background = 'var(--border)'; dot.style.color = 'var(--muted)'; }
+  }
+  document.getElementById('line1').style.background = state.setupStep > 1 ? 'var(--accent)' : 'var(--border)';
+  document.getElementById('line2').style.background = state.setupStep > 2 ? 'var(--accent)' : 'var(--border)';
+}
+function goToStep1() {
+  state.setupStep = 1;
+  document.getElementById('setup-step1').style.display = 'block';
+  document.getElementById('setup-step2').style.display = 'none';
+  document.getElementById('setup-step3').style.display = 'none';
+  updateStepUI();
+}
+function goToStep2() {
+  if (!state.selectedSubject) { alert('Vui lòng chọn môn học!'); return; }
+  state.setupStep = 2;
+  document.getElementById('setup-step1').style.display = 'none';
+  document.getElementById('setup-step2').style.display = 'block';
+  document.getElementById('setup-step3').style.display = 'none';
+  updateStepUI();
+}
+function goToStep3() {
+  parseKeywords();
+  if (state.keywords.length < 3) { alert('Vui lòng nhập ít nhất 3 từ khóa!'); return; }
+  autoSaveKeywords();
+  state.setupStep = 3;
+  document.getElementById('setup-step1').style.display = 'none';
+  document.getElementById('setup-step2').style.display = 'none';
+  document.getElementById('setup-step3').style.display = 'block';
+  updateStepUI();
+}
+
+// ============ SUBJECTS ============
+function renderSubjects() {
+  var grid = document.getElementById('subject-grid');
+  grid.innerHTML = subjects.map(function(s){
+    return '<div class="subject-card'+(state.selectedSubject&&state.selectedSubject.id===s.id?' selected':'')+'" onclick="selectSubject(\''+s.id+'\')" style="text-align:center;">'+
+      '<div class="subject-icon" style="background:'+s.color+'20;color:'+s.color+';">'+getIconSvg(s.icon,24)+'</div>'+
+      '<div style="font-weight:500;font-size:14px;">'+s.name+'</div></div>';
+  }).join('');
+}
+function selectSubject(id) {
+  state.selectedSubject = subjects.find(function(s){return s.id===id;});
+  playSound('click');
+  renderSubjects();
+}
+
+// ============ POWERS ============
+function renderPowers() {
+  var allPowers = defaultPowers.concat(state.customPowers);
+  var grid = document.getElementById('power-grid');
+  grid.innerHTML = allPowers.map(function(p){
+    var isSelected = state.selectedPowers.some(function(sp){return sp.id===p.id;});
+    return '<div class="subject-card'+(isSelected?' selected':'')+'" onclick="togglePower(\''+p.id+'\')" style="text-align:left;">'+
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">'+
+      '<div style="width:40px;height:40px;border-radius:10px;background:'+p.color+'20;color:'+p.color+';display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+getIconSvg(p.icon,20)+'</div>'+
+      '<div style="font-weight:600;">'+p.name+'</div></div>'+
+      '<div style="font-size:12px;color:var(--muted);line-height:1.4;">'+p.desc+'</div></div>';
+  }).join('');
+}
+function togglePower(id) {
+  var allPowers = defaultPowers.concat(state.customPowers);
+  var power = allPowers.find(function(p){return p.id===id;});
+  var idx = state.selectedPowers.findIndex(function(sp){return sp.id===id;});
+  if (idx >= 0) state.selectedPowers.splice(idx,1);
+  else {
+    if (state.selectedPowers.length >= 3) { alert('Chỉ được chọn tối đa 3 thể năng!'); return; }
+    state.selectedPowers.push(power);
+  }
+  playSound('click');
+  renderPowers();
+}
+
+// ============ ADD POWER MODAL ============
+function openAddPowerModal() {
+  document.getElementById('modal-addpower').style.display = 'flex';
+  renderIconPicker();
+}
+function closeAddPowerModal() { document.getElementById('modal-addpower').style.display = 'none'; }
+function renderIconPicker() {
+  var picker = document.getElementById('icon-picker');
+  picker.innerHTML = iconOptions.map(function(icon){
+    return '<div onclick="selectIcon(\''+icon+'\')" style="width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid '+(state.selectedIcon===icon?'var(--accent)':'var(--border)')+';background:'+(state.selectedIcon===icon?'var(--accent-soft)':'var(--bg)')+';color:'+(state.selectedIcon===icon?'var(--accent)':'var(--text)')+';transition:all .15s;">'+getIconSvg(icon,20)+'</div>';
+  }).join('');
+}
+function selectIcon(icon) { state.selectedIcon = icon; playSound('click'); renderIconPicker(); }
+function addCustomPower() {
+  var name = document.getElementById('power-name').value.trim();
+  var desc = document.getElementById('power-desc').value.trim();
+  var action = document.getElementById('power-action').value;
+  if (!name) { alert('Vui lòng nhập tên thể năng!'); return; }
+  
+  var actionColors = { burn:'#ff6b35', freeze:'#06b6d4', magnify:'#8b5cf6', hint:'#f59e0b', shuffle:'#ec4899', time:'#10b981' };
+  var actionDescs = {
+    burn: 'Đốt cháy và tự động tìm một từ ngẫu nhiên',
+    freeze: 'Dừng thời gian 10 giây',
+    magnify: 'Làm nổi bật một chữ cái ngẫu nhiên',
+    hint: 'Gợi ý toàn bộ một từ khóa',
+    shuffle: 'Đổi màu các ô chưa tìm được',
+    time: 'Cộng thêm 30 giây vào thời gian'
+  };
+  
+  var newPower = {
+    id: 'custom_'+Date.now(),
+    name: name,
+    icon: state.selectedIcon,
+    desc: desc || actionDescs[action],
+    color: actionColors[action] || '#ff6b35',
+    action: action,
+    custom: true
+  };
+  state.customPowers.push(newPower);
+  closeAddPowerModal();
+  renderPowers();
+  document.getElementById('power-name').value = '';
+  document.getElementById('power-desc').value = '';
+  playSound('correct');
+}
+
+// ============ KEYWORDS ============
+function parseKeywords() {
+  var input = document.getElementById('keywords-input').value;
+  var words = input.split(/[\n,;，；]/).map(function(w){return w.trim();}).filter(function(w){return w.length>0;});
+  state.keywords = words;
+  document.getElementById('keyword-count').textContent = 'Đã nhập: '+words.length+' từ';
+  var preview = document.getElementById('keywords-preview');
+  var container = document.getElementById('preview-container');
+  if (words.length > 0) {
+    container.style.display = 'block';
+    preview.innerHTML = words.map(function(w){return '<span class="chip chip-active">'+w+'</span>';}).join('');
+  } else { container.style.display = 'none'; }
+}
+document.addEventListener('input', function(e){ if(e.target.id==='keywords-input') parseKeywords(); });
+
+function saveCurrentKeywords() {
+  if (state.keywords.length < 3) { alert('Vui lòng nhập ít nhất 3 từ khóa!'); return; }
+  autoSaveKeywords();
+  alert('Đã lưu bộ từ khóa!');
+  playSound('correct');
+}
+function autoSaveKeywords() {
+  if (state.keywords.length < 3) return;
+  var wordSet = {
+    id: 'set_'+Date.now(),
+    subject: state.selectedSubject,
+    powers: JSON.parse(JSON.stringify(state.selectedPowers)),
+    keywords: JSON.parse(JSON.stringify(state.keywords)),
+    settings: JSON.parse(JSON.stringify(state.gameSettings)),
+    createdAt: new Date().toISOString()
+  };
+  var existing = state.wordSets.findIndex(function(s){
+    return s.subject.id===wordSet.subject.id && JSON.stringify(s.keywords)===JSON.stringify(wordSet.keywords);
+  });
+  if (existing >= 0) { state.wordSets[existing] = wordSet; }
+  else { state.wordSets.push(wordSet); }
+  localStorage.setItem('wordSearchSets_v2', JSON.stringify(state.wordSets));
+}
+
+// ============ SETTINGS ============
+function setTime(sec) { document.getElementById('game-time').value = sec; state.gameSettings.time = sec; playSound('click'); }
+document.addEventListener('change', function(e){ if(e.target.id==='game-time') state.gameSettings.time = parseInt(e.target.value)||120; });
+function toggleSetting(el, key) {
+  el.classList.toggle('active');
+  state.gameSettings[key] = el.classList.contains('active');
+  playSound('click');
+}
+function saveAndStart() { autoSaveKeywords(); startGame(); }
+
+// ============ WORD SETS LIST ============
+function renderWordSets() {
+  var container = document.getElementById('wordsets-container');
+  var empty = document.getElementById('wordsets-empty');
+  if (state.wordSets.length === 0) { container.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  container.innerHTML = state.wordSets.map(function(set,idx){
+    return '<div class="card-raised reveal" style="padding:20px;">'+
+      '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">'+
+      '<div style="width:48px;height:48px;border-radius:12px;background:'+set.subject.color+'20;color:'+set.subject.color+';display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+getIconSvg(set.subject.icon,24)+'</div>'+
+      '<div><div style="font-weight:600;">'+set.subject.name+'</div><div style="font-size:12px;color:var(--muted);">'+set.keywords.length+' từ khóa</div></div></div>'+
+      '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px;max-height:60px;overflow:hidden;">'+
+      set.keywords.slice(0,6).map(function(k){return '<span class="stat-badge" style="background:var(--accent-soft);color:var(--accent);font-size:11px;padding:2px 9px;border-radius:20px;">'+k+'</span>';}).join('')+
+      (set.keywords.length>6?'<span class="stat-badge" style="background:var(--border);color:var(--muted);font-size:11px;padding:2px 9px;border-radius:20px;">+'+(set.keywords.length-6)+'</span>':'')+
+      '</div>'+
+      '<div style="display:flex;gap:8px;">'+
+      '<button onclick="playWordSet('+idx+')" class="btn-primary" style="padding:10px 16px;font-size:14px;flex:1;">Dùng</button>'+
+      '<button onclick="editWordSet('+idx+')" class="btn-secondary" style="padding:10px 16px;font-size:14px;">Chỉnh sửa</button>'+
+      '<button onclick="deleteWordSet('+idx+')" class="btn-ghost" style="padding:10px;color:var(--error);">'+
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg></button></div></div>';
+  }).join('');
+}
+function playWordSet(idx) {
+  initAudio();
+  var set = state.wordSets[idx];
+  state.selectedSubject = set.subject;
+  state.selectedPowers = JSON.parse(JSON.stringify(set.powers));
+  state.keywords = JSON.parse(JSON.stringify(set.keywords));
+  state.gameSettings = JSON.parse(JSON.stringify(set.settings));
+  startGame();
+}
+function editWordSet(idx) {
+  var set = state.wordSets[idx];
+  state.selectedSubject = set.subject;
+  state.selectedPowers = JSON.parse(JSON.stringify(set.powers));
+  state.keywords = JSON.parse(JSON.stringify(set.keywords));
+  state.gameSettings = JSON.parse(JSON.stringify(set.settings));
+  state.wordSets.splice(idx,1);
+  localStorage.setItem('wordSearchSets_v2', JSON.stringify(state.wordSets));
+  showScreen('setup');
+  state.setupStep = 2;
+  document.getElementById('setup-step1').style.display = 'none';
+  document.getElementById('setup-step2').style.display = 'block';
+  document.getElementById('setup-step3').style.display = 'none';
+  document.getElementById('keywords-input').value = state.keywords.join('\n');
+  parseKeywords();
+  renderSubjects();
+  renderPowers();
+  updateStepUI();
+}
+function deleteWordSet(idx) {
+  if (!confirm('Bạn có chắc muốn xóa bộ từ khóa này?')) return;
+  state.wordSets.splice(idx,1);
+  localStorage.setItem('wordSearchSets_v2', JSON.stringify(state.wordSets));
+  renderWordSets();
+  playSound('click');
+}
+
+// ============ GAME ENGINE ============
+function startGame() {
+  if (state.keywords.length === 0) { alert('Không có từ khóa!'); return; }
+  showScreen('game');
+  initGameState();
+  generateBoard();
+  renderGameBoard();
+  renderGamePowers();
+  renderWordList();
+  startTimer();
+  playSound('click');
+}
+
+function initGameState() {
+  var maxLen = Math.max.apply(null, state.keywords.map(function(w){return w.replace(/\s+/g,'').length;}));
+  gameState = {
+    board: [],
+    boardSize: Math.max(10, Math.min(14, maxLen + 4)),
+    words: [],
+    wordPositions: {},
+    foundWords: [],
+    selectedCells: [],
+    isSelecting: false,
+    score: 0,
+    timeLeft: state.gameSettings.time,
+    timerInterval: null,
+    isPaused: false,
+    soundOn: true,
+    activePower: null,
+    powerUses: {},
+    frozen: false
+  };
+  state.selectedPowers.forEach(function(p){ gameState.powerUses[p.id] = 3; });
+  document.getElementById('game-subject').textContent = state.selectedSubject ? state.selectedSubject.name : 'Tổng Hợp';
+  document.getElementById('game-score').textContent = '0';
+  updateTimerDisplay();
+  document.getElementById('found-words').innerHTML = '';
+}
+
+function generateBoard() {
+  var size = gameState.boardSize;
+  var board = [];
+  for (var i = 0; i < size; i++) { board.push(new Array(size).fill('')); }
+  
+  var directions = [[0,1],[1,0],[1,1],[-1,1],[0,-1],[-1,0],[-1,-1],[1,-1]];
+  var wordsToPlace = state.keywords.slice().sort(function(a,b){return b.replace(/\s+/g,'').length - a.replace(/\s+/g,'').length;});
+  
+  wordsToPlace.forEach(function(word){
+    var cleanWord = word.toUpperCase().replace(/\s+/g,'');
+    var placed = false;
+    for (var attempt = 0; attempt < 300 && !placed; attempt++) {
+      var dir = directions[Math.floor(Math.random()*directions.length)];
+      var startR = Math.floor(Math.random()*size);
+      var startC = Math.floor(Math.random()*size);
+      var endR = startR + dir[0]*(cleanWord.length-1);
+      var endC = startC + dir[1]*(cleanWord.length-1);
+      if (endR<0||endR>=size||endC<0||endC>=size) continue;
+      var canPlace = true;
+      for (var i = 0; i < cleanWord.length; i++) {
+        var r = startR+dir[0]*i, c = startC+dir[1]*i;
+        if (board[r][c] !== '' && board[r][c] !== cleanWord[i]) { canPlace = false; break; }
+      }
+      if (canPlace) {
+        var positions = [];
+        for (var i = 0; i < cleanWord.length; i++) {
+          var r = startR+dir[0]*i, c = startC+dir[1]*i;
+          board[r][c] = cleanWord[i];
+          positions.push([r,c]);
+        }
+        gameState.wordPositions[cleanWord] = {positions: positions, dir: dir, found: false, original: word};
+        gameState.words.push(cleanWord);
+        placed = true;
+      }
+    }
+  });
+  
+  var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  for (var r = 0; r < size; r++) {
+    for (var c = 0; c < size; c++) {
+      if (board[r][c] === '') board[r][c] = alphabet[Math.floor(Math.random()*alphabet.length)];
+    }
+  }
+  gameState.board = board;
+  document.getElementById('found-count').textContent = '0/'+gameState.words.length;
+}
+
+function renderGameBoard() {
+  var boardEl = document.getElementById('game-board');
+  var size = gameState.boardSize;
+  var cellSize = 42;
+  boardEl.style.gridTemplateColumns = 'repeat('+size+','+cellSize+'px)';
+  boardEl.innerHTML = '';
+  
+  for (var r = 0; r < size; r++) {
+    for (var c = 0; c < size; c++) {
+      var cell = document.createElement('div');
+      cell.className = 'word-cell';
+      cell.style.width = cellSize+'px';
+      cell.style.height = cellSize+'px';
+      cell.textContent = gameState.board[r][c];
+      cell.dataset.r = r;
+      cell.dataset.c = c;
+      cell.addEventListener('mousedown', function(e){ startSelection(e); });
+      cell.addEventListener('mouseenter', function(e){ continueSelection(e); });
+      cell.addEventListener('touchstart', function(e){ e.preventDefault(); startSelection(e); }, {passive:false});
+      cell.addEventListener('touchmove', function(e){ e.preventDefault(); continueSelection(e); }, {passive:false});
+      boardEl.appendChild(cell);
+    }
+  }
+  
+  document.addEventListener('mouseup', endSelection);
+  document.addEventListener('touchend', endSelection);
+  
+  var svg = document.getElementById('connection-svg');
+  var padding = 20;
+  var gap = 8;
+  svg.setAttribute('width', size*(cellSize+gap) + padding*2);
+  svg.setAttribute('height', size*(cellSize+gap) + padding*2);
+  svg.style.left = (padding - 4) + 'px';
+  svg.style.top = (padding - 4) + 'px';
+}
+
+function renderGamePowers() {
+  var container = document.getElementById('game-powers');
+  container.innerHTML = state.selectedPowers.map(function(p){
+    var uses = gameState.powerUses[p.id]||0;
+    return '<div class="power-btn'+(uses===0?' disabled':'')+'" onclick="usePower(\''+p.id+'\')" title="'+p.desc+'">'+
+      '<div class="power-icon" style="background:'+p.color+'20;color:'+p.color+';">'+getIconSvg(p.icon,20)+'</div>'+
+      '<div class="power-info"><div class="power-name" style="color:'+p.color+';">'+p.name+'</div><div class="power-desc">'+p.desc+'</div></div>'+
+      '<span class="power-count">'+uses+'</span></div>';
+  }).join('');
+}
+
+function renderWordList() {
+  var container = document.getElementById('word-list');
+  var section = document.getElementById('word-list-section');
+  if (!state.gameSettings.showWordList) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  container.innerHTML = gameState.words.map(function(w){
+    var found = gameState.foundWords.includes(w);
+    var original = gameState.wordPositions[w] ? gameState.wordPositions[w].original : w;
+    return '<div style="padding:6px 10px;border-radius:8px;font-size:13px;font-weight:500;transition:all .3s ease;'+(found?'background:var(--accent-soft);color:var(--accent);text-decoration:line-through;':'color:var(--muted);')+'">'+original+'</div>';
+  }).join('');
+}
+
+// ============ WORD SELECTION - FIXED ============
+function getCellFromEvent(e) {
+  var target = e.target;
+  if (e.touches && e.touches.length > 0) {
+    target = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+  }
+  if (target && target.classList.contains('word-cell')) return target;
+  return null;
+}
+
+function startSelection(e) {
+  if (gameState.isPaused) return;
+  initAudio();
+  var cell = getCellFromEvent(e);
+  if (!cell || cell.classList.contains('found')) return;
+  gameState.isSelecting = true;
+  gameState.selectedCells = [cell];
+  cell.classList.add('selected');
+  playSound('click');
+}
+
+function continueSelection(e) {
+  if (!gameState.isSelecting || gameState.isPaused) return;
+  var cell = getCellFromEvent(e);
+  if (!cell || cell.classList.contains('found')) return;
+  
+  var first = gameState.selectedCells[0];
+  var r1 = parseInt(first.dataset.r), c1 = parseInt(first.dataset.c);
+  var r2 = parseInt(cell.dataset.r), c2 = parseInt(cell.dataset.c);
+  var dr = r2 - r1, dc = c2 - c1;
+  
+  if (dr === 0 && dc === 0) return;
+  
+  if (gameState.selectedCells.length === 1) {
+    if (dr !== 0 && dc !== 0 && Math.abs(dr) !== Math.abs(dc)) return;
+  } else {
+    var second = gameState.selectedCells[1];
+    var sr = parseInt(second.dataset.r) - r1;
+    var sc = parseInt(second.dataset.c) - c1;
+    var stepR = sr === 0 ? 0 : sr / Math.max(Math.abs(sr), Math.abs(sc));
+    var stepC = sc === 0 ? 0 : sc / Math.max(Math.abs(sr), Math.abs(sc));
+    
+    var expectedR = r1 + stepR * gameState.selectedCells.length;
+    var expectedC = c1 + stepC * gameState.selectedCells.length;
+    
+    if (Math.abs(r2 - expectedR) > 0.01 || Math.abs(c2 - expectedC) > 0.01) return;
+  }
+  
+  gameState.selectedCells.forEach(function(c){c.classList.remove('selected');});
+  gameState.selectedCells = [];
+  
+  var len = Math.max(Math.abs(dr), Math.abs(dc));
+  var stepR = dr === 0 ? 0 : dr / len;
+  var stepC = dc === 0 ? 0 : dc / len;
+  
+  for (var i = 0; i <= len; i++) {
+    var tr = Math.round(r1 + stepR * i);
+    var tc = Math.round(c1 + stepC * i);
+    var targetCell = document.querySelector('.word-cell[data-r="'+tr+'"][data-c="'+tc+'"]');
+    if (targetCell && !targetCell.classList.contains('found')) {
+      gameState.selectedCells.push(targetCell);
+      targetCell.classList.add('selected');
+    }
+  }
+}
+
+function endSelection() {
+  if (!gameState.isSelecting) return;
+  gameState.isSelecting = false;
+  
+  if (gameState.selectedCells.length < 2) {
+    gameState.selectedCells.forEach(function(c){c.classList.remove('selected');});
+    gameState.selectedCells = [];
+    return;
+  }
+  
+  var word = gameState.selectedCells.map(function(c){return c.textContent;}).join('');
+  var reverseWord = word.split('').reverse().join('');
+  
+  var matched = null;
+  for (var w in gameState.wordPositions) {
+    if (!gameState.wordPositions[w].found && (w === word || w === reverseWord)) {
+      matched = w;
+      break;
+    }
+  }
+  
+  if (matched) {
+    wordFound(matched);
+  } else {
+    wordWrong();
+  }
+}
+
+function wordFound(word) {
+  playSound('correct');
+  gameState.wordPositions[word].found = true;
+  gameState.foundWords.push(word);
+  
+  var points = word.length * 10;
+  gameState.score += points;
+  var scoreEl = document.getElementById('game-score');
+  scoreEl.textContent = gameState.score;
+  scoreEl.classList.add('pop');
+  setTimeout(function(){scoreEl.classList.remove('pop');},400);
+  
+  showFloatPoint('+'+points, gameState.selectedCells[0]);
+  
+  gameState.selectedCells.forEach(function(cell, idx){
+    cell.classList.remove('selected');
+    setTimeout(function(){cell.classList.add('correct-glow');}, idx * 50);
+  });
+  
+  drawConnectionLine(gameState.selectedCells, '#10b981');
+  
+  var foundContainer = document.getElementById('found-words');
+  var item = document.createElement('div');
+  item.className = 'found-word';
+  var original = gameState.wordPositions[word].original;
+  item.innerHTML = '<svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span style="flex:1;">'+original+'</span><span style="font-size:12px;color:var(--accent2);font-weight:700;">+'+points+'</span>';
+  foundContainer.insertBefore(item, foundContainer.firstChild);
+  
+  document.getElementById('found-count').textContent = gameState.foundWords.length+'/'+gameState.words.length;
+  renderWordList();
+  
+  if (gameState.foundWords.length === gameState.words.length) {
+    setTimeout(showVictory, 800);
+  }
+  
+  gameState.selectedCells = [];
+  launchFireworks();
+}
+
+function wordWrong() {
+  playSound('wrong');
+  gameState.selectedCells.forEach(function(cell){
+    cell.classList.remove('selected');
+    cell.classList.add('wrong-flash');
+    (function(c){setTimeout(function(){c.classList.remove('wrong-flash');},500);})(cell);
+  });
+  
+  var board = document.getElementById('game-board');
+  board.classList.add('shake');
+  setTimeout(function(){board.classList.remove('shake');},500);
+  
+  gameState.selectedCells = [];
+}
+
+function showFloatPoint(text, element) {
+  var rect = element.getBoundingClientRect();
+  var fp = document.createElement('div');
+  fp.className = 'float-point';
+  fp.textContent = text;
+  fp.style.left = rect.left + rect.width/2 + 'px';
+  fp.style.top = rect.top + 'px';
+  document.body.appendChild(fp);
+  setTimeout(function(){fp.remove();},1000);
+}
+
+function drawConnectionLine(cells, color) {
+  if (cells.length < 2) return;
+  var svg = document.getElementById('connection-svg');
+  var first = cells[0], last = cells[cells.length-1];
+  var r1 = first.getBoundingClientRect(), r2 = last.getBoundingClientRect();
+  var wrapperRect = document.getElementById('game-board-wrapper').getBoundingClientRect();
+  
+  var cellSize = 42, gap = 8, padding = 20;
+  
+  function getCellCenter(cell) {
+    var r = parseInt(cell.dataset.r);
+    var c = parseInt(cell.dataset.c);
+    return {
+      x: padding + c * (cellSize + gap) + cellSize/2,
+      y: padding + r * (cellSize + gap) + cellSize/2
+    };
+  }
+  
+  var p1 = getCellCenter(first);
+  var p2 = getCellCenter(last);
+  
+  var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1', p1.x); line.setAttribute('y1', p1.y);
+  line.setAttribute('x2', p2.x); line.setAttribute('y2', p2.y);
+  line.setAttribute('stroke', color);
+  line.setAttribute('stroke-width', '6');
+  line.setAttribute('stroke-linecap', 'round');
+  line.setAttribute('opacity', '0.7');
+  svg.appendChild(line);
+}
+
+// ============ POWERS - FULLY IMPLEMENTED ============
+function usePower(id) {
+  if (gameState.isPaused) return;
+  if ((gameState.powerUses[id]||0) <= 0) return;
+  initAudio();
+  
+  var power = state.selectedPowers.find(function(p){return p.id===id;});
+  if (!power) return;
+  
+  var action = power.action || power.id;
+  gameState.powerUses[id]--;
+  renderGamePowers();
+  
+  switch(action) {
+    case 'freeze':
+      playSound('power');
+      gameState.frozen = true;
+      showToast('❄️ Đã đóng băng thời gian 10 giây!', power.color);
+      setTimeout(function(){gameState.frozen=false;},10000);
+      break;
+      
+    case 'magnify':
+      playSound('power');
+      var unfoundCells = [];
+      document.querySelectorAll('.word-cell').forEach(function(cell){
+        if (!cell.classList.contains('found')) unfoundCells.push(cell);
+      });
+      if (unfoundCells.length > 0) {
+        var cell = unfoundCells[Math.floor(Math.random()*unfoundCells.length)];
+        cell.classList.add('hint');
+        setTimeout(function(){cell.classList.remove('hint');},2400);
+      }
+      showToast('🔍 Kính lúp đã tìm thấy một chữ cái!', power.color);
+      break;
+      
+    case 'hint':
+      playSound('power');
+      var unfoundWords = Object.keys(gameState.wordPositions).filter(function(w){return !gameState.wordPositions[w].found;});
+      if (unfoundWords.length > 0) {
+        var word = unfoundWords[Math.floor(Math.random()*unfoundWords.length)];
+        var positions = gameState.wordPositions[word].positions;
+        positions.forEach(function(pos){
+          var cell = document.querySelector('.word-cell[data-r="'+pos[0]+'"][data-c="'+pos[1]+'"]');
+          if (cell) { cell.classList.add('hint'); setTimeout(function(){cell.classList.remove('hint');},2400); }
+        });
+      }
+      showToast('💡 Bóng đèn đã gợi ý một từ!', power.color);
+      break;
+      
+    case 'burn':
+      playSound('burn');
+      var unfoundForBurn = Object.keys(gameState.wordPositions).filter(function(w){return !gameState.wordPositions[w].found;});
+      if (unfoundForBurn.length > 0) {
+        var burnWord = unfoundForBurn[Math.floor(Math.random()*unfoundForBurn.length)];
+        var burnPositions = gameState.wordPositions[burnWord].positions;
+        
+        burnPositions.forEach(function(pos, idx){
+          setTimeout(function(){
+            var cell = document.querySelector('.word-cell[data-r="'+pos[0]+'"][data-c="'+pos[1]+'"]');
+            if (cell) cell.classList.add('burning');
+          }, idx * 80);
+        });
+        
+        setTimeout(function(){
+          gameState.selectedCells = burnPositions.map(function(pos){
+            return document.querySelector('.word-cell[data-r="'+pos[0]+'"][data-c="'+pos[1]+'"]');
+          }).filter(function(c){return c;});
+          wordFound(burnWord);
+        }, burnPositions.length * 80 + 400);
+        
+        showToast('🔥 Cháy! Một từ đã bị thiêu rụi!', power.color);
+      }
+      break;
+      
+    case 'shuffle':
+      playSound('power');
+      document.querySelectorAll('.word-cell').forEach(function(cell){
+        if (!cell.classList.contains('found')) {
+          cell.style.transition = 'all .3s ease';
+          cell.style.transform = 'rotate(360deg) scale(0.8)';
+          setTimeout(function(){
+            cell.style.background = 'hsl('+Math.random()*360+', 60%, 90%)';
+            cell.style.transform = 'rotate(0deg) scale(1)';
+            setTimeout(function(){cell.style.background='';},1500);
+          },300);
+        }
+      });
+      showToast('🔀 Xáo trộn hoàn tất!', power.color);
+      break;
+      
+    case 'time':
+      playSound('power');
+      gameState.timeLeft += 30;
+      updateTimerDisplay();
+      showToast('⏰ Đã cộng thêm 30 giây!', power.color);
+      break;
+      
+    default:
+      playSound('power');
+      showToast(power.name+' đã được kích hoạt!', power.color);
+  }
+}
+
+function showToast(msg, color) {
+  var toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;top:30px;left:50%;transform:translateX(-50%);padding:14px 28px;background:'+(color||'var(--accent)')+';color:#fff;border-radius:14px;font-weight:600;font-size:15px;z-index:300;box-shadow:0 8px 30px rgba(0,0,0,.25);animation:fadeUp .3s ease;';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(function(){toast.style.opacity='0';toast.style.transition='opacity .4s, transform .4s';toast.style.transform='translateX(-50%) translateY(-20px)';setTimeout(function(){toast.remove();},400);},2200);
+}
+
+// ============ TIMER ============
+function startTimer() {
+  stopTimer();
+  gameState.timerInterval = setInterval(function(){
+    if (gameState.isPaused || gameState.frozen) return;
+    gameState.timeLeft--;
+    updateTimerDisplay();
+    if (gameState.timeLeft <= 0) { stopTimer(); showVictory(); }
+  }, 1000);
+}
+function stopTimer() { if (gameState.timerInterval) { clearInterval(gameState.timerInterval); gameState.timerInterval = null; } }
+function updateTimerDisplay() {
+  var m = Math.floor(gameState.timeLeft/60);
+  var s = gameState.timeLeft%60;
+  document.getElementById('game-timer').textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  var pct = Math.max(0, (gameState.timeLeft/state.gameSettings.time)*100);
+  document.getElementById('timer-progress').style.width = pct+'%';
+  if (gameState.timeLeft <= 30) {
+    document.getElementById('game-timer').style.color = 'var(--error)';
+  } else {
+    document.getElementById('game-timer').style.color = 'var(--accent2)';
+  }
+}
+
+// ============ GAME CONTROLS ============
+function toggleGameSound() {
+  gameState.soundOn = !gameState.soundOn;
+  document.getElementById('sound-icon-on').style.display = gameState.soundOn ? 'block' : 'none';
+  document.getElementById('sound-icon-off').style.display = gameState.soundOn ? 'none' : 'block';
+}
+function pauseGame() { gameState.isPaused = true; document.getElementById('modal-pause').style.display = 'flex'; }
+function resumeGame() { gameState.isPaused = false; document.getElementById('modal-pause').style.display = 'none'; }
+function restartGame() {
+  document.getElementById('modal-pause').style.display = 'none';
+  document.getElementById('modal-victory').style.display = 'none';
+  document.getElementById('firework-canvas').style.display = 'none';
+  startGame();
+}
+function exitGame() { if (!confirm('Bạn có chắc muốn thoát trò chơi?')) return; exitGameNow(); }
+function exitGameFromPause() { document.getElementById('modal-pause').style.display = 'none'; exitGameNow(); }
+function exitGameNow() { stopTimer(); showScreen('home'); }
+function goHomeFromVictory() {
+  document.getElementById('modal-victory').style.display = 'none';
+  document.getElementById('firework-canvas').style.display = 'none';
+  stopTimer(); showScreen('home');
+}
+
+// ============ VICTORY ============
+function showVictory() {
+  stopTimer();
+  var isComplete = gameState.foundWords.length === gameState.words.length;
+  
+  document.getElementById('victory-title').textContent = isComplete ? 'CHÚC MỪNG!' : 'Hết Giờ!';
+  document.getElementById('victory-subtitle').textContent = isComplete 
+    ? 'Bạn đã tìm được tất cả '+gameState.words.length+' từ!' 
+    : 'Bạn đã tìm được '+gameState.foundWords.length+'/'+gameState.words.length+' từ';
+  document.getElementById('final-score').textContent = gameState.score;
+  document.getElementById('final-words').textContent = gameState.foundWords.length;
+  var timeUsed = state.gameSettings.time - gameState.timeLeft;
+  document.getElementById('final-time').textContent = timeUsed+'s';
+  
+  document.getElementById('modal-victory').style.display = 'flex';
+  
+  if (isComplete && state.gameSettings.victoryScreen) {
+    playSound('victory');
+    launchConfetti();
+    launchFireworks();
+  }
+}
+
+// ============ VISUAL EFFECTS ============
+function launchConfetti() {
+  var colors = ['#297a2e','#d97706','#ec4899','#06b6d4','#8b5cf6','#f59e0b','#10b981','#ef4444'];
+  for (var i = 0; i < 120; i++) {
+    var piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random()*100+'vw';
+    piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+    piece.style.animationDelay = Math.random()*2+'s';
+    piece.style.animationDuration = (2.5+Math.random()*2)+'s';
+    piece.style.width = (8+Math.random()*8)+'px';
+    piece.style.height = (8+Math.random()*8)+'px';
+    if (Math.random() > 0.5) piece.style.borderRadius = '50%';
+    document.body.appendChild(piece);
+    setTimeout(function(p){return function(){p.remove();};}(piece),5500);
+  }
+}
+
+function launchFireworks() {
+  var canvas = document.getElementById('firework-canvas');
+  canvas.style.display = 'block';
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  var ctx = canvas.getContext('2d');
+  
+  var particles = [];
+  var colors = ['#297a2e','#d97706','#ec4899','#06b6d4','#8b5cf6','#10b981','#ef4444','#fbbf24'];
+  
+  function createFirework() {
+    var cx = canvas.width * (0.2 + Math.random() * 0.6);
+    var cy = canvas.height * (0.15 + Math.random() * 0.4);
+    var color = colors[Math.floor(Math.random()*colors.length)];
+    var particleCount = 50 + Math.floor(Math.random() * 30);
+    
+    for (var i = 0; i < particleCount; i++) {
+      var angle = (Math.PI * 2 / particleCount) * i;
+      var speed = 2 + Math.random() * 5;
+      particles.push({
+        x: cx, y: cy,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 1,
+        color: color,
+        size: 2 + Math.random() * 4,
+        gravity: 0.03
+      });
+    }
+  }
+  
+  for (var f = 0; f < 8; f++) { setTimeout(createFirework, f * 180); }
+  
+  var frame = 0;
+  function animate() {
+    ctx.fillStyle = 'rgba(0,0,0,0.12)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    particles = particles.filter(function(p){ return p.life > 0; });
+    
+    particles.forEach(function(p){
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += p.gravity;
+      p.vx *= 0.99;
+      p.life -= 0.015;
+      
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.life;
+      ctx.fill();
+      
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * p.life * 2, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.life * 0.2;
+      ctx.fill();
+      
+      ctx.globalAlpha = 1;
+    });
+    
+    frame++;
+    if (particles.length > 0 && frame < 180) { 
+      requestAnimationFrame(animate); 
+    } else { 
+      canvas.style.display = 'none'; 
+      ctx.clearRect(0, 0, canvas.width, canvas.height); 
+    }
+  }
+  animate();
+}
+
+// ============ INIT ============
+renderSubjects();
+renderPowers();
+</script>
+</html>
